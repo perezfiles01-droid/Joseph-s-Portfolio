@@ -306,7 +306,11 @@ body {
 .hero-stage {
     position: relative;
     width: min(420px, 72vw);
-    margin: 0 auto;
+    /* Bottom margin reserves the exact distance the name hangs past the frame,
+       so whatever follows cannot collide with it. Margin, not padding: padding
+       would move the name's containing block down by the same amount and the
+       overlap would simply travel with it. */
+    margin: 0 auto 2cqw;
     /* Lets the name size against the portrait rather than the viewport, so the
        type/figure proportion is identical at 320px and 1440px. */
     container-type: inline-size;
@@ -389,11 +393,76 @@ body {
     to { background-position: 240% 0; }
 }
 
+/* ---------------------------------------------------------------
+   Hero supporting accents
+   Green stays the interface colour (nav, active state, the live dot);
+   the warm metal is the identity colour. Two roles, two palettes.
+   --------------------------------------------------------------- */
+.hero-availability {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    margin: 0 auto clamp(0.5rem, 1.5vw, 1.25rem);
+    width: max-content;
+    max-width: 92vw;
+    padding: 0.5em 1.1em;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.hero-availability__dot {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 0 0 rgba(74, 157, 111, 0.7);
+    animation: availability-pulse 2.4s ease-out infinite;
+}
+
+@keyframes availability-pulse {
+    70%  { box-shadow: 0 0 0 0.5em rgba(74, 157, 111, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 157, 111, 0); }
+}
+
+.hero-role {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.6rem, 2vw, 1.25rem);
+    margin: clamp(0.75rem, 2.5vw, 1.5rem) auto 0;
+    padding: 0 var(--spacing-md);
+    font-size: clamp(0.6rem, 1.45vw, 0.8rem);
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.62);
+}
+
+.hero-role__rule {
+    height: 1px;
+    width: clamp(1.5rem, 7vw, 5rem);
+    flex: 0 1 auto;
+    background: linear-gradient(90deg, transparent, rgba(201, 164, 98, 0.85), transparent);
+}
+
 /* On a narrow phone the portrait is already ~78vw and the name on one line
    needs about 1.9x that, which cannot fit. Stacking the two words drops the
    widest line to ~4.3em, so the type can stay large enough to still read as
    display type and still overhang the figure. */
 @media (max-width: 600px) {
+    /* Matches the larger stacked overhang below. */
+    .hero-stage {
+        margin-bottom: 5cqw;
+    }
+
     .hero-name {
         flex-direction: column;
         align-items: center;
