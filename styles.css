@@ -278,31 +278,31 @@ body {
 .profile-hero {
     position: relative;
     width: 100%;
-    height: clamp(400px, 60vh, 560px);
+    padding: clamp(1rem, 3vw, 2.5rem) 0 0;
     overflow: hidden;
     background-color: var(--dark-bg);
 }
 
+/* Shoulder-level crop. Measured from the PNG's alpha channel: the neck is
+   narrowest at y=280 (47%), the shoulders flare from y=340, and the subject
+   fills the frame by y=480. Cutting at 76% (y=449) keeps head, neck, both
+   shoulders and the barong collar.
+   The frame is a fixed aspect box with overflow hidden; the image sits at its
+   natural aspect ratio anchored to the top, so the torso below 76% is clipped
+   rather than scaled. At 420px wide it renders 588px tall from a 591px source
+   — effectively 1:1, so no softening. */
 .profile-image-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    width: min(420px, 72vw);
+    aspect-ratio: 422 / 449;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .profile-image {
+    display: block;
     width: 100%;
-    height: 100%;
-    /* contain, not cover: the source is a 422x591 portrait and the hero is a
-       wide banner. cover scaled it up ~3x and cropped away everything below
-       the hairline. contain fits the whole figure and renders at or below
-       native resolution, which also removes the blur. */
-    object-fit: contain;
-    object-position: center bottom;
+    height: auto;
     transition: transform 0.4s ease;
 }
 
@@ -925,8 +925,8 @@ body {
         padding: var(--spacing-sm);
     }
 
-    .profile-hero {
-        height: clamp(360px, 55vh, 480px);
+    .profile-image-wrapper {
+        width: min(420px, 66vw);
     }
 
     .profile-content-overlay {
@@ -988,8 +988,8 @@ body {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .profile-hero {
-        height: clamp(340px, 52vh, 440px);
+    .profile-image-wrapper {
+        width: min(420px, 70vw);
     }
 
     .profile-content-overlay {
@@ -1082,8 +1082,8 @@ body {
         font-size: clamp(0.7rem, 1.8vw, 0.85rem);
     }
 
-    .profile-hero {
-        height: clamp(320px, 50vh, 400px);
+    .profile-image-wrapper {
+        width: min(420px, 74vw);
     }
 
     .profile-content-overlay {
@@ -1172,8 +1172,8 @@ body {
         font-size: clamp(0.65rem, 1.5vw, 0.8rem);
     }
 
-    .profile-hero {
-        height: clamp(300px, 48vh, 380px);
+    .profile-image-wrapper {
+        width: min(420px, 76vw);
     }
 
     .profile-content-overlay {
@@ -1262,8 +1262,8 @@ body {
         padding: var(--spacing-sm) 0.5rem;
     }
 
-    .profile-hero {
-        height: clamp(280px, 45vh, 340px);
+    .profile-image-wrapper {
+        width: min(420px, 78vw);
     }
 
     .profile-content-overlay {
