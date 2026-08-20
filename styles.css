@@ -289,6 +289,7 @@ body {
     width: 100%;
     height: clamp(500px, 70vh, 800px);
     overflow: hidden;
+    background-color: var(--dark-bg);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -307,7 +308,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top;
+    object-position: center top;
     transition: transform 0.4s ease;
 }
 
