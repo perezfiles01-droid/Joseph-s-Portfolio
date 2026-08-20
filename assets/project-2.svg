@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#2a2a2a"/>
+  <rect x="40" y="60" width="320" height="160" fill="#6bb896" rx="5"/>
+  <circle cx="100" cy="100" r="15" fill="#1a1a1a"/>
+  <circle cx="200" cy="100" r="15" fill="#1a1a1a"/>
+  <circle cx="300" cy="100" r="15" fill="#1a1a1a"/>
+  <text x="200" y="250" font-size="20" fill="#999" text-anchor="middle" font-family="Arial">Project 2</text>
+</svg>

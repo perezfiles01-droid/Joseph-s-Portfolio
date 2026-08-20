@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#2a2a2a"/>
+  <rect x="60" y="80" width="280" height="120" fill="#6bb896" rx="8"/>
+  <line x1="120" y1="90" x2="120" y2="190" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="200" y1="80" x2="200" y2="200" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="280" y1="100" x2="280" y2="180" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="200" y="250" font-size="20" fill="#999" text-anchor="middle" font-family="Arial">Project 4</text>
+</svg>
