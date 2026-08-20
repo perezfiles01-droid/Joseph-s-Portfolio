@@ -278,7 +278,7 @@ body {
 .profile-hero {
     position: relative;
     width: 100%;
-    height: clamp(200px, 40vh, 350px);
+    height: clamp(150px, 30vh, 280px);
     overflow: hidden;
     background-color: var(--dark-bg);
     border-bottom: 1px solid var(--border-color);
@@ -926,7 +926,7 @@ body {
     }
 
     .profile-hero {
-        height: clamp(300px, 50vh, 500px);
+        height: clamp(200px, 40vh, 400px);
     }
 
     .profile-content-overlay {
@@ -989,7 +989,7 @@ body {
     }
 
     .profile-hero {
-        height: clamp(280px, 45vh, 420px);
+        height: clamp(180px, 35vh, 320px);
     }
 
     .profile-content-overlay {
@@ -1083,7 +1083,7 @@ body {
     }
 
     .profile-hero {
-        height: clamp(250px, 40vh, 380px);
+        height: clamp(170px, 32vh, 300px);
     }
 
     .profile-content-overlay {
@@ -1173,7 +1173,7 @@ body {
     }
 
     .profile-hero {
-        height: clamp(200px, 35vh, 320px);
+        height: clamp(140px, 28vh, 260px);
     }
 
     .profile-content-overlay {
@@ -1263,7 +1263,7 @@ body {
     }
 
     .profile-hero {
-        height: clamp(180px, 32vh, 300px);
+        height: clamp(130px, 26vh, 240px);
     }
 
     .profile-content-overlay {
