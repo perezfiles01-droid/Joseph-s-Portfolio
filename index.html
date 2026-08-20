@@ -35,9 +35,9 @@
             </div>
             <nav class="nav">
                 <ul>
-                    <li><a href="#resume">RESUME</a></li>
-                    <li><a href="#portfolio">PORTFOLIO</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="#portfolio" class="nav-link active" data-section="portfolio">PORTFOLIO</a></li>
+                    <li><a href="#resume" class="nav-link" data-section="resume">RESUME</a></li>
+                    <li><a href="#contact" class="nav-link" data-section="contact">CONTACT</a></li>
                 </ul>
             </nav>
         </div>
@@ -123,13 +123,80 @@
         </div>
     </section>
 
+    <!-- Resume Section -->
+    <section class="resume-section" id="resume">
+        <div class="container">
+            <h2>Resume</h2>
+            <p>Resume content coming soon. Your professional experience, skills, and qualifications will be displayed here.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <p>Get in touch with Joseph. Contact information and message form will be displayed here.</p>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2026 Joseph. All rights reserved.</p>
     </footer>
 
     <script>
-        // Enhanced interactivity for project cards with touch support
+        // ============================================
+        // Active Navigation State Management
+        // ============================================
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('[id="portfolio"], [id="resume"], [id="contact"]');
+
+        // Set active nav link
+        function setActiveNav(sectionId) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === sectionId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Handle nav link clicks with smooth scroll and active state
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                const target = document.getElementById(sectionId);
+
+                if (target) {
+                    // Update active state
+                    setActiveNav(sectionId);
+
+                    // Smooth scroll to section
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', function() {
+            let currentSection = 'portfolio'; // default
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (window.pageYOffset >= sectionTop - 100) {
+                    currentSection = section.id;
+                }
+            });
+
+            setActiveNav(currentSection);
+        }, { passive: true });
+
+        // ============================================
+        // Project Card Interactivity
+        // ============================================
         document.querySelectorAll('.project-card').forEach(card => {
             let touchStartY = 0;
 
@@ -164,20 +231,6 @@
             const projectTitle = card.querySelector('h3').textContent;
             alert(`Details for ${projectTitle} coming soon!`);
         }
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
 
         // Prevent touch delay on mobile
         document.addEventListener('touchstart', function() {}, { passive: true });
