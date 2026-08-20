@@ -9,8 +9,11 @@
     <meta name="apple-mobile-web-app-title" content="Joseph">
     <meta name="description" content="Joseph's Professional Portfolio - Web Developer & Designer">
     <meta name="color-scheme" content="dark">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Joseph - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260820">
     <style>
         /* Prefers reduced motion support for accessibility */
         @media (prefers-reduced-motion: reduce) {
@@ -388,6 +391,19 @@
         window.addEventListener('load', function() {
             setActiveNav('portfolio');
         });
+    </script>
+
+    <!-- Service Worker Registration for Cache Invalidation -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('Service Worker registered successfully:', registration);
+                }).catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
     </script>
 </body>
 </html>
