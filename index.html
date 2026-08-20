@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Joseph">
+    <meta name="description" content="Joseph's Professional Portfolio - Web Developer & Designer">
+    <meta name="color-scheme" content="dark">
     <title>Joseph - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Prefers reduced motion support for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -110,12 +129,58 @@
     </footer>
 
     <script>
-        // Add interactivity to project cards
+        // Enhanced interactivity for project cards with touch support
         document.querySelectorAll('.project-card').forEach(card => {
+            let touchStartY = 0;
+
+            // Handle click events
             card.addEventListener('click', function() {
-                alert('Project details coming soon!');
+                showProjectDetails(this);
+            });
+
+            // Handle touch events (prevent accidental clicks on scroll)
+            card.addEventListener('touchstart', function(e) {
+                touchStartY = e.touches[0].clientY;
+            });
+
+            card.addEventListener('touchend', function(e) {
+                const touchEndY = e.changedTouches[0].clientY;
+                // Only trigger if touch movement is minimal (< 20px vertical)
+                if (Math.abs(touchStartY - touchEndY) < 20) {
+                    showProjectDetails(this);
+                }
+            });
+
+            // Add keyboard support for accessibility
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    showProjectDetails(this);
+                }
             });
         });
+
+        function showProjectDetails(card) {
+            const projectTitle = card.querySelector('h3').textContent;
+            alert(`Details for ${projectTitle} coming soon!`);
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Prevent touch delay on mobile
+        document.addEventListener('touchstart', function() {}, { passive: true });
     </script>
 </body>
 </html>
