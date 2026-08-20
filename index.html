@@ -123,21 +123,137 @@
         </div>
     </section>
 
-    <!-- Resume Section -->
-    <section class="resume-section" id="resume">
-        <div class="container">
-            <h2>Resume</h2>
-            <p>Resume content coming soon. Your professional experience, skills, and qualifications will be displayed here.</p>
+    <!-- View Container -->
+    <div class="view-container">
+        <!-- Portfolio View -->
+        <div class="view" id="portfolio-view" data-view="portfolio" style="display: block;">
+            <!-- Portfolio content is above in the hero section -->
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <h2>Contact</h2>
-            <p>Get in touch with Joseph. Contact information and message form will be displayed here.</p>
+        <!-- Resume View -->
+        <div class="view" id="resume-view" data-view="resume" style="display: none;">
+            <div class="resume-container">
+                <div class="resume-header">
+                    <h1>Resume</h1>
+                    <p class="resume-subtitle">Professional Experience & Skills</p>
+                </div>
+
+                <!-- Experience Section -->
+                <div class="resume-section animate-section">
+                    <div class="section-icon">💼</div>
+                    <h2>Experience</h2>
+                    <div class="experience-item">
+                        <h3>Senior Developer</h3>
+                        <p class="company">Tech Company Inc.</p>
+                        <p class="date">2022 - Present</p>
+                        <p class="description">Led development of multiple full-stack applications, mentored junior developers, and improved code quality across the team.</p>
+                    </div>
+                    <div class="experience-item">
+                        <h3>Full Stack Developer</h3>
+                        <p class="company">Digital Solutions Ltd.</p>
+                        <p class="date">2020 - 2022</p>
+                        <p class="description">Developed and maintained web applications using React and Node.js, implemented responsive designs, and optimized performance.</p>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="resume-section animate-section">
+                    <div class="section-icon">⚡</div>
+                    <h2>Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h4>Frontend</h4>
+                            <p>React, Vue, HTML, CSS, JavaScript</p>
+                        </div>
+                        <div class="skill-card">
+                            <h4>Backend</h4>
+                            <p>Node.js, Python, SQL, APIs</p>
+                        </div>
+                        <div class="skill-card">
+                            <h4>Tools</h4>
+                            <p>Git, Docker, AWS, CI/CD</p>
+                        </div>
+                        <div class="skill-card">
+                            <h4>Soft Skills</h4>
+                            <p>Leadership, Communication, Problem-solving</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Section -->
+                <div class="resume-section animate-section">
+                    <div class="section-icon">🎓</div>
+                    <h2>Education</h2>
+                    <div class="education-item">
+                        <h3>Bachelor of Science in Computer Science</h3>
+                        <p class="school">University of Technology</p>
+                        <p class="date">Graduated 2020</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+
+        <!-- Contact View -->
+        <div class="view" id="contact-view" data-view="contact" style="display: none;">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h1>Get In Touch</h1>
+                    <p class="contact-subtitle">Let's Connect & Collaborate</p>
+                </div>
+
+                <div class="contact-content">
+                    <!-- Contact Info Cards -->
+                    <div class="contact-info-section">
+                        <div class="contact-card animate-contact-card">
+                            <div class="card-icon">📧</div>
+                            <h3>Email</h3>
+                            <p><a href="mailto:joseph@example.com">joseph@example.com</a></p>
+                        </div>
+                        <div class="contact-card animate-contact-card">
+                            <div class="card-icon">📱</div>
+                            <h3>Phone</h3>
+                            <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                        </div>
+                        <div class="contact-card animate-contact-card">
+                            <div class="card-icon">📍</div>
+                            <h3>Location</h3>
+                            <p>San Francisco, CA</p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-section">
+                        <h2>Send a Message</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" placeholder="Your Name" required>
+                                <label>Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="Your Email" required>
+                                <label>Email</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" placeholder="Your Message" rows="6" required></textarea>
+                                <label>Message</label>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-section">
+                        <h3>Connect On Social</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">GitHub</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -146,10 +262,10 @@
 
     <script>
         // ============================================
-        // Active Navigation State Management
+        // View Switching System
         // ============================================
         const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('[id="portfolio"], [id="resume"], [id="contact"]');
+        const views = document.querySelectorAll('.view');
 
         // Set active nav link
         function setActiveNav(sectionId) {
@@ -161,38 +277,33 @@
             });
         }
 
-        // Handle nav link clicks with smooth scroll and active state
+        // Switch to a specific view
+        function switchView(viewName) {
+            // Hide all views
+            views.forEach(view => {
+                view.style.display = 'none';
+            });
+
+            // Show the selected view
+            const targetView = document.getElementById(viewName + '-view');
+            if (targetView) {
+                targetView.style.display = 'block';
+                // Scroll to top when switching views
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update active nav link
+            setActiveNav(viewName);
+        }
+
+        // Handle nav link clicks with view switching
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const sectionId = this.getAttribute('data-section');
-                const target = document.getElementById(sectionId);
-
-                if (target) {
-                    // Update active state
-                    setActiveNav(sectionId);
-
-                    // Smooth scroll to section
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                switchView(sectionId);
             });
         });
-
-        // Update active nav on scroll
-        window.addEventListener('scroll', function() {
-            let currentSection = 'portfolio'; // default
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-
-                if (window.pageYOffset >= sectionTop - 100) {
-                    currentSection = section.id;
-                }
-            });
-
-            setActiveNav(currentSection);
-        }, { passive: true });
 
         // ============================================
         // Project Card Interactivity
@@ -234,6 +345,11 @@
 
         // Prevent touch delay on mobile
         document.addEventListener('touchstart', function() {}, { passive: true });
+
+        // Initialize with portfolio view active
+        window.addEventListener('load', function() {
+            setActiveNav('portfolio');
+        });
     </script>
 </body>
 </html>
