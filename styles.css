@@ -286,19 +286,19 @@ body {
 
 .view-container {
     width: 100%;
-    min-height: 100vh;
 }
 
 .view {
+    width: 100%;
     min-height: 100vh;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    display: block;
+    transition: opacity 0.5s ease;
     opacity: 1;
-    visibility: visible;
 }
 
 .view[style*="display: none"] {
+    display: none !important;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
 }
 
