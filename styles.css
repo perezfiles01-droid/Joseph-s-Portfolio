@@ -1,3 +1,13 @@
+/* Self-hosted rather than pulled from Google Fonts: no third-party request,
+   no flash of fallback text, and the site keeps working offline. */
+@font-face {
+    font-family: 'Archivo Black';
+    src: url('assets/fonts/archivo-black-latin.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* ===========================
    Global Styles & Variables
    =========================== */
@@ -278,7 +288,7 @@ body {
 .profile-hero {
     position: relative;
     width: 100%;
-    padding: clamp(1rem, 3vw, 2.5rem) 0 0;
+    padding: clamp(1rem, 3vw, 2.5rem) 0 clamp(1.25rem, 5vw, 3rem);
     overflow: hidden;
     background-color: var(--dark-bg);
 }
@@ -291,12 +301,109 @@ body {
    natural aspect ratio anchored to the top, so the torso below 76% is clipped
    rather than scaled. At 420px wide it renders 588px tall from a 591px source
    — effectively 1:1, so no softening. */
-.profile-image-wrapper {
+/* The stage sizes to the portrait; the name is positioned against it so the
+   type always meets the figure at the same point regardless of viewport. */
+.hero-stage {
     position: relative;
     width: min(420px, 72vw);
-    aspect-ratio: 422 / 449;
     margin: 0 auto;
+    /* Lets the name size against the portrait rather than the viewport, so the
+       type/figure proportion is identical at 320px and 1440px. */
+    container-type: inline-size;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 422 / 449;
     overflow: hidden;
+    /* Fades the cut edge into the page instead of ending the barong on a hard
+       rectangle. It also darkens the ground directly under the name, which is
+       what keeps the metallic fill readable where it crosses the shirt. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, rgba(0, 0, 0, 0.35) 88%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 72%, rgba(0, 0, 0, 0.35) 88%, transparent 100%);
+}
+
+/* ---------------------------------------------------------------
+   Display name
+   Sits in front of the portrait, its cap-height starting below the
+   chin (measured at ~57% of the cropped frame) so the head reads
+   clear above it and the letters cross the barong. The line is wider
+   than the portrait, so it runs out over the dark field either side.
+   --------------------------------------------------------------- */
+.hero-name {
+    position: absolute;
+    left: 50%;
+    bottom: -2cqw;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 0.28em;
+    white-space: nowrap;
+    font-family: 'Archivo Black', 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
+    font-weight: 400;
+    /* 26cqw keeps the name ~1.9x the portrait width at every breakpoint; the
+       vw term stops it running off the edge on narrow phones, where the
+       portrait itself is nearly viewport-wide. */
+    font-size: min(26cqw, 12vw, 6.75rem);
+    line-height: 0.86;
+    letter-spacing: -0.02em;
+    /* Keeps the type legible where it crosses the cream barong. */
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.65));
+}
+
+/* JOSEPH — outlined, the quiet half. The @supports guard matters: without
+   it, an engine that ignores text-stroke would render transparent text on a
+   dark field, i.e. an invisible name. */
+.hero-name__outline {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+@supports (-webkit-text-stroke: 1px white) {
+    .hero-name__outline {
+        color: transparent;
+        -webkit-text-stroke: clamp(1px, 0.16vw, 2px) rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* PEREZ — filled with a warm metallic gradient sampled from the barong, so
+   the type and the photograph share a palette. The solid `color` is the
+   fallback wherever background-clip:text is unsupported. */
+.hero-name__fill {
+    color: #e3c88b;
+    /* Richer than a pale champagne: the deep amber stops give the letters
+       body against both the dark field and the barong. */
+    background: linear-gradient(110deg,
+        #fff6dd 0%, #e8cf95 18%, #c9a462 40%, #a8814a 60%, #e6d3a3 82%, #fff6dd 100%);
+    background-size: 240% 100%;
+    background-position: 0% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: metal-shimmer 12s linear infinite;
+}
+
+/* Drifts the gradient so the metal catches light. Compositor-friendly and
+   already neutralised by the global prefers-reduced-motion block. */
+@keyframes metal-shimmer {
+    to { background-position: 240% 0; }
+}
+
+/* On a narrow phone the portrait is already ~78vw and the name on one line
+   needs about 1.9x that, which cannot fit. Stacking the two words drops the
+   widest line to ~4.3em, so the type can stay large enough to still read as
+   display type and still overhang the figure. */
+@media (max-width: 600px) {
+    .hero-name {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        font-size: 23cqw;
+        /* Two stacked lines are much taller than one, so the block is pushed
+           further past the frame to keep JOSEPH off the jaw and on the shirt.
+           The section's bottom padding catches the overhang. */
+        bottom: -5cqw;
+    }
 }
 
 .profile-image {
@@ -925,7 +1032,7 @@ body {
         padding: var(--spacing-sm);
     }
 
-    .profile-image-wrapper {
+    .hero-stage {
         width: min(420px, 66vw);
     }
 
@@ -988,7 +1095,7 @@ body {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .profile-image-wrapper {
+    .hero-stage {
         width: min(420px, 70vw);
     }
 
@@ -1082,7 +1189,7 @@ body {
         font-size: clamp(0.7rem, 1.8vw, 0.85rem);
     }
 
-    .profile-image-wrapper {
+    .hero-stage {
         width: min(420px, 74vw);
     }
 
@@ -1172,7 +1279,7 @@ body {
         font-size: clamp(0.65rem, 1.5vw, 0.8rem);
     }
 
-    .profile-image-wrapper {
+    .hero-stage {
         width: min(420px, 76vw);
     }
 
@@ -1262,7 +1369,7 @@ body {
         padding: var(--spacing-sm) 0.5rem;
     }
 
-    .profile-image-wrapper {
+    .hero-stage {
         width: min(420px, 78vw);
     }
 
